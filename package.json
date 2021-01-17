@@ -1,0 +1,19 @@
+{
+  "name": "jackboxapi",
+  "version": "1.0.0",
+  "description": "API for Jackbox Games Server",
+  "main": "main.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergeyMC9730/JackboxAPI.git"
+  },
+  "author": "SergeyMC9730",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SergeyMC9730/JackboxAPI/issues"
+  },
+  "homepage": "https://github.com/SergeyMC9730/JackboxAPI#readme"
+}
