@@ -1,2 +1,2 @@
 # JackboxAPI
-API for Jackbox Games
+API for Jackbox Games Server
