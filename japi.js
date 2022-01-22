@@ -2,6 +2,11 @@ var config = require("./config.json");
 var EventEmitter = require('events');
 var taskjs = require("task.js");
 
+/**
+* **Validate JSON string**
+* @param {string} string Input
+* @returns boolean `(true | false)`
+*/
 var checkJSON = (string = "") => {
     if(typeof string != "string") return false;
 
@@ -17,6 +22,10 @@ var dir = __dirname;
 var last_connection;
 var is_ready = false;
 
+/**
+* **Websocket server**
+* @param {JAPI} k JAPI Class
+*/
 var run_server = (k) => {
     var websockets = require('ws');
     var server = new websockets.Server({port: 22122});
@@ -39,10 +48,25 @@ var run_server = (k) => {
     
 }
 
+/**
+* **Jackbox API Class**
+* @class
+*/
 class JAPI extends EventEmitter {
     constructor(){
         super();
+
+        /**
+        * **Validate JSON string**
+        * @param {string} string Input
+        * @returns boolean `(true | false)`
+        */
         this.checkJSON = checkJSON;
+        /**
+         * **Event loop**
+         * @param {string} dirname Directory path 
+         * @param {object} conf Configuration
+         */
         this.event_loop = (dirname, conf) => {
             var websockets = require('ws');
             var ws_client = new websockets("ws://localhost:22122");
@@ -81,10 +105,18 @@ class JAPI extends EventEmitter {
                 }
             }
         }
+        /**
+         * **Request room info**
+         * @param {string} room Room
+         * @fires JAPI#room.check
+         */
         this.is_room = (room = "") => {
-            //shared.jobs.push({type: "room.check", room: room});
             if(is_ready) last_connection.send(JSON.stringify({type: "room.check", room: room}))
         }
+
+        /**
+         * **Init event loop**
+         */
         this.run_events = () => {
             var event_task = new taskjs();
             run_server(this);
@@ -96,24 +128,6 @@ class JAPI extends EventEmitter {
         };
     };
 };
-
-var isRoom = (room = "") => {
-    var x = new xmlhr.XMLHttpRequest()
-    x.open("GET", `${config.endpoints.jgames.protocol}${config.endpoints.jgames.endpoint}${config.endpoints.jgames.avaliable.rooms}${room}`);
-    x.setRequestHeader("Content-Type", "application/json")
-    x.send()
-    var res = false;
-    var is_ready = false;
-    var f = setInterval(() => {
-        if(checkJSON(x.responseText)) {
-            if(JSON.parse(x.responseText).ok) res = true;
-            is_ready = true;
-            clearInterval(f);
-        }
-    }, 500)
-    while(!is_ready);
-    return res;
-}
 
 module.exports = {
     JAPI: JAPI

@@ -8,7 +8,7 @@
 
             "comment": "ml - multilanguage",
             
-            "endpoint": "ecast.jackboxgames.com",
+            "endpoint": "type endpoint here",
             "avaliable": {
                 "controller_state": "/api/v2/contoller/-state",
                 "rooms": "/api/v2/rooms/"
@@ -19,15 +19,15 @@
             "language": "en",
             "states": {
                 "production_endpoint": {
-                    "endpoint": "jackbox.tv",
+                    "endpoint": "type endpoint here",
                     "avaliable": {}
                 },
                 "staging_endpoint": {
-                    "endpoint": "qa.jackbox.tv",
+                    "endpoint": "type endpoint here",
                     "avaliable": {}
                 },
                 "development_endpoint": {
-                    "endpoint": "test.jackbox.tv",
+                    "endpoint": "type endpoint",
                     "avaliable": {}
                 }
             }

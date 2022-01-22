@@ -12,5 +12,5 @@ g.on("room.check", (s) => {
 g.run_events(g);
 
 setTimeout(() => {
-    g.is_room("JJJJ");
+    g.is_room("NSTJ");
 }, 1000)
