@@ -1,4 +1,16 @@
-var x = new XMLHttpRequest()
-x.open("POST", "http://jackbox.fun/rooms/rd.php");
-x.setRequestHeader("Content-Type", "application/json")
-console.log(x.response)
+
+var japi = require("./japi")
+var g = new japi.JAPI();
+
+g.on("debug", (message) => {
+    console.log(message);
+});
+g.on("room.check", (s) => {
+    console.log(s);
+})
+
+g.run_events(g);
+
+setTimeout(() => {
+    g.is_room("JJJJ");
+}, 1000)

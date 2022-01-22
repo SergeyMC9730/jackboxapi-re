@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/SergeyMC9730/JackboxAPI#readme",
   "dependencies": {
+    "task.js": "^0.1.5",
+    "utf-8-validate": "^5.0.8",
+    "ws": "^8.4.2",
     "xmlhttprequest": "^1.8.0"
   }
 }

@@ -1,0 +1,41 @@
+{
+    "endpoints": {
+        "jfun": {
+            "language": "ru"
+        },
+        "jgames": {
+            "language": "ml",
+
+            "comment": "ml - multilanguage",
+            
+            "endpoint": "ecast.jackboxgames.com",
+            "avaliable": {
+                "controller_state": "/api/v2/contoller/-state",
+                "rooms": "/api/v2/rooms/"
+            },
+            "protocol": "https://"
+        },
+        "jtv": {
+            "language": "en",
+            "states": {
+                "production_endpoint": {
+                    "endpoint": "jackbox.tv",
+                    "avaliable": {}
+                },
+                "staging_endpoint": {
+                    "endpoint": "qa.jackbox.tv",
+                    "avaliable": {}
+                },
+                "development_endpoint": {
+                    "endpoint": "test.jackbox.tv",
+                    "avaliable": {}
+                }
+            }
+        },
+        "localhost": {
+            "endpoint": "localhost",
+            "avaliable": {}
+        }
+    }
+    
+}
