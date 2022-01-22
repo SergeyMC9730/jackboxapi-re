@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SergeyMC9730/JackboxAPI/issues"
   },
-  "homepage": "https://github.com/SergeyMC9730/JackboxAPI#readme"
+  "homepage": "https://github.com/SergeyMC9730/JackboxAPI#readme",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
 }
