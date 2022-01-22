@@ -1,2 +1,2 @@
-# JackboxAPI
-API for Jackbox Games Server
+# jackboxapi-re
+Reverse Engineering the Jackbox Game Server
