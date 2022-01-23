@@ -1,7 +1,22 @@
 {
     "endpoints": {
         "jfun": {
-            "language": "ru"
+            "language": "ru",
+            "stages": {
+                "production_endpoint": {
+                    "endpoint": "jackbox.fun",
+                    "avaliable": {
+                        "rooms": "/rooms/"
+                    }
+                },
+                "development_endpoint": {
+                    "endpoint": "test.jackbox.fun",
+                    "avaliable": {
+                        "rooms": "/rooms/"
+                    }
+                }
+            },
+            "protocol": "https://"
         },
         "jgames": {
             "language": "ml",
@@ -25,7 +40,9 @@
             "states": {
                 "production_endpoint": {
                     "endpoint": "jackbox.tv",
-                    "avaliable": {}
+                    "avaliable": {
+                        "rooms": "/rooms/"
+                    }
                 },
                 "staging_endpoint": {
                     "endpoint": "qa.jackbox.tv",
@@ -33,9 +50,12 @@
                 },
                 "development_endpoint": {
                     "endpoint": "test.jackbox.tv",
-                    "avaliable": {}
+                    "avaliable": {
+                        "rooms": "/rooms/"
+                    }
                 }
-            }
+            },
+            "protocol": "https://"
         },
         "localhost": {
             "endpoint": "localhost",

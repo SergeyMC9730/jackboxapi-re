@@ -1,21 +1,21 @@
 {
   "name": "jackboxapi",
   "version": "1.0.0",
-  "description": "API for Jackbox Games Server",
+  "description": "Reverse Engineering the Jackbox Game Server",
   "main": "main.js",
   "scripts": {
     "test": "node test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SergeyMC9730/JackboxAPI.git"
+    "url": "git+https://github.com/SergeyMC9730/jackboxapi-re.git"
   },
   "author": "SergeyMC9730",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SergeyMC9730/JackboxAPI/issues"
+    "url": "https://github.com/SergeyMC9730/jackboxapi-re/issues"
   },
-  "homepage": "https://github.com/SergeyMC9730/JackboxAPI#readme",
+  "homepage": "https://github.com/SergeyMC9730/jackboxapi-re#readme",
   "dependencies": {
     "task.js": "^0.1.5",
     "utf-8-validate": "^5.0.8",
