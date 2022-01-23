@@ -61,6 +61,13 @@ class JAPI extends EventEmitter {
         super();
 
         /**
+         * **Lookup table for games**
+         */
+        this.game_lookuptable = {
+            "triviadeath2": "Trivia Murder Party 2"
+        }
+
+        /**
         * **Validate JSON string**
         * @param {string} string Input
         * @returns boolean `(true | false)`

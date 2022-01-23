@@ -8,12 +8,12 @@ var japi = require("./japi")
 var g = new japi.JAPI();
 
 g.on("debug", (message) => {
-    console.log(message);
+    //console.log(message);
 });
 g.on("room.check", (s) => {
     if(s.ok == true){
         console.log("Found room %s", s.body.code);
-        console.log("Game selected: %s", s.body.appTag)
+        console.log("Game selected: %s", g.game_lookuptable[s.body.appTag]);
     } else {
         console.log("Room not found!")
     }
