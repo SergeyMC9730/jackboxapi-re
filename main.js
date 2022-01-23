@@ -8,7 +8,7 @@ var japi = require("./japi")
 var g = new japi.JAPI();
 
 g.on("debug", (message) => {
-    //console.log(message);
+    console.log(message);
 });
 g.on("room.check", (s) => {
     if(s.ok == true){

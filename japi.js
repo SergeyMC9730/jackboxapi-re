@@ -36,7 +36,11 @@ var run_server = (k) => {
             if(checkJSON(raw.toString("utf8"))){
                 switch(JSON.parse(raw.toString("utf8")).return_type){
                     case "room.check": {
-                        k.emit("room.check", JSON.parse(raw.toString("utf8")).returned)
+                        k.emit("room.check", JSON.parse(raw.toString("utf8")).returned);
+                        break;
+                    }
+                    case "debug": {
+                        k.emit("debug", JSON.parse(raw.toString("utf8")).returned);
                         break;
                     }
                 }
@@ -81,24 +85,41 @@ class JAPI extends EventEmitter {
                 return false;
             }
 
+            ws_client.on("open", () => {
+                ws_client.send(JSON.stringify({
+                    return_type: "debug",
+                    returned: {
+                        type: 2,
+                        msg: "Event thread and main thread are linked"
+                    }
+                }));
+            });
+
             ws_client.onmessage = (message) => {
                 if(checkJSON(message.data)){
                     switch(JSON.parse(message.data).type){
                         case "room.check": {
                             var x = new xmlhr.XMLHttpRequest();
                             var b = true;
-                            x.open("GET", `${conf.endpoints.jgames.protocol}${conf.endpoints.jgames.endpoint}${conf.endpoints.jgames.avaliable.rooms}${JSON.parse(message.data).room}`);
+                            x.open("GET", `${conf.endpoints.jgames.protocol}${conf.endpoints.jgames.endpoints.ecast}${conf.endpoints.jgames.address}${conf.endpoints.jgames.avaliable.rooms}${JSON.parse(message.data).room}`);
+                            ws_client.send(JSON.stringify({
+                                return_type: "debug",
+                                returned: {
+                                    type: 0,
+                                    msg: `request "${conf.endpoints.jgames.protocol}${conf.endpoints.jgames.endpoints.ecast}${conf.endpoints.jgames.address}${conf.endpoints.jgames.avaliable.rooms}${JSON.parse(message.data).room}"`
+                                }
+                            }));
                             x.setRequestHeader("Content-Type", "application/json");
                             x.onreadystatechange = () => {
                                 if(checkJSON(x.responseText) && b){
                                     ws_client.send(JSON.stringify({
                                         return_type: "room.check",
                                         returned: JSON.parse(x.responseText)
-                                    }))
+                                    }));
                                     b = false;
                                 }
                             }
-                            x.send()
+                            x.send();
                             break;
                         }
                     }
@@ -111,7 +132,7 @@ class JAPI extends EventEmitter {
          * @fires JAPI#room.check
          */
         this.is_room = (room = "") => {
-            if(is_ready) last_connection.send(JSON.stringify({type: "room.check", room: room}))
+            if(is_ready) last_connection.send(JSON.stringify({type: "room.check", room: room}));
         }
 
         /**
@@ -120,14 +141,14 @@ class JAPI extends EventEmitter {
         this.run_events = () => {
             var event_task = new taskjs();
             run_server(this);
-            event_task.run(this.event_loop, dir, config)
+            event_task.run(this.event_loop, dir, config);
             this.emit("debug", {
                 type: 1,
                 msg: "events are ready to run"
             });
-        };
-    };
-};
+        }
+    }
+}
 
 module.exports = {
     JAPI: JAPI

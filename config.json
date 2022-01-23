@@ -8,26 +8,31 @@
 
             "comment": "ml - multilanguage",
             
-            "endpoint": "type endpoint here",
-            "avaliable": {
-                "controller_state": "/api/v2/contoller/-state",
-                "rooms": "/api/v2/rooms/"
+            "endpoints": {
+                "ecast": "ecast.",
+                "blobcast": "blobcast."
             },
-            "protocol": "https://"
+            "avaliable": {
+                "controller_state": "/api/v2/contoller/-state/",
+                "rooms": "/api/v2/rooms/",
+                "reqroom": "/room/"
+            },
+            "protocol": "https://",
+            "address": "jackboxgames.com"
         },
         "jtv": {
             "language": "en",
             "states": {
                 "production_endpoint": {
-                    "endpoint": "type endpoint here",
+                    "endpoint": "jackbox.tv",
                     "avaliable": {}
                 },
                 "staging_endpoint": {
-                    "endpoint": "type endpoint here",
+                    "endpoint": "qa.jackbox.tv",
                     "avaliable": {}
                 },
                 "development_endpoint": {
-                    "endpoint": "type endpoint",
+                    "endpoint": "test.jackbox.tv",
                     "avaliable": {}
                 }
             }
