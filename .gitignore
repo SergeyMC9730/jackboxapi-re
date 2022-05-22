@@ -1,3 +1,6 @@
 node_modules
 config_my.json
 out
+
+#files i used to debug game session
+debug_*

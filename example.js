@@ -1,27 +1,36 @@
 //example program based on jackbox api
 var readline = require("readline");
+var crypto = require("crypto");
 var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+var fs = require("fs");
 var japi = require("./japi")
 var g = new japi.JAPI();
 
 var use_config = true;
 var config = {
-    room: "QUKS",
-    playerName: "api re",
+    room: "KDXC",
+    playerName: "Debugger",
     password: ""
 }
+
+var filepath = "./debug/current_game_debugger.txt"
+var file_data = ""
 
 g.on("debug", (message) => {
     console.log(message);
 });
+g.on("everything", (message) => {
+	file_data += `${message}\n`;
+	fs.writeFileSync(filepath, file_data);
+})
 g.on("room.check", (s) => {
     //console.log(s);
     if (s.is_avaliable) {
         console.log("Found room %s", s.room);
-        //console.log("Game selected: %s", g.game_lookuptable[s.game_selected][0]);
+        console.log("Game selected: %s", (typeof g.game_lookuptable[s.game_selected] == "undefined") ? s.game_selected : `${g.game_lookuptable[s.game_selected][0]} (unknown)`);
         g.connect(s)
     } else {
         console.log("Room not found!");

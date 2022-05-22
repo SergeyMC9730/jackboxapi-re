@@ -48,8 +48,9 @@ class Room {
         this.uid = "";
         this.appId = "";
         this.enable_audience = false;
-        
+        this.secret = "";
         this.rawdata = "";
+        this.reconnected = false;
     }
 }
 
@@ -63,12 +64,15 @@ var run_server = (k) => {
 
     server.on("connection", (socket, request) => {
         last_connection = socket;
+        var fs = require('fs');
         last_connection.on("message", (raw, b) => {
             if(checkJSON(raw.toString("utf8"))){
+		    k.emit("everything", raw.toString("utf8"));
                 switch(JSON.parse(raw.toString("utf8")).return_type){
                     case "room.check": {
                         var r = new Room();
                         var p = JSON.parse(raw.toString("utf8")).returned;
+                        fs.appendFileSync("debug.txt", `room.check - ${JSON.stringify(p)}\n`);
                         r.audience = (p.ok) ? 0 : null;
                         r.endpoint_guest = (p.ok) ? p.body.audienceHost : null;
                         r.endpoint_player = (p.ok) ? p.body.host : null;
@@ -88,7 +92,11 @@ var run_server = (k) => {
                         r.password = JSON.parse(raw.toString("utf8")).args[1];
                         r.player_name = JSON.parse(raw.toString("utf8")).args[0];
                         r.uid = crypto.randomUUID(); //Jackbox checks only player UUID for preventing joining twice
-
+                        r.secret = crypto.randomUUID(); //IDK why Jackbox Games decided to use UUID twice. Without it, server will block you from connection to room. Thank you, Jackbox Games.
+                        if(!p.body.reconnect) r.reconnected = false;
+                        else {
+                            r.reconnected = true;
+                        }
                         /**
                         * @event JAPI#room.check
                         * @param {Room} room Room
@@ -133,14 +141,17 @@ class JAPI extends EventEmitter {
         
         /**
         * @event JAPI#room.connection
-        * @param {String} str string (not reverse engineered, just temp solution)
+        * @param {Object} data Data that sends server to client. Not reverse engineered.
         */
 
         /**
          * **Lookup table for games**
          */
         this.game_lookuptable = {
-        "triviadeath2": ["Trivia Murder Party 2", "Смертельная вечеринка 2"]
+            "triviadeath2": ["Trivia Murder Party 2", "Смертельная вечеринка 2"],
+            "survivetheinternet": ["Survive the Internet", "Выжить в Интернете"],
+            "overdrawn": ["Overdrawn", "Гражданский холст"],
+            "monstermingle": ["Monster Mingle", "Монстр ищет монстра"]
         }
         
 
@@ -164,7 +175,7 @@ class JAPI extends EventEmitter {
                     
                 try {
                     if(typeof JSON.parse(string) == "object") return true;
-                } catch (e) {}
+                } catch (e) {return false;}
 
                 return false;
             }
@@ -234,15 +245,18 @@ class JAPI extends EventEmitter {
         this.connect = (room) => {
             var websockets = require('ws');
             //console.log(`wss://${room.endpoint_player}${config.endpoints.jgames.avaliable.rooms}${room.room}/play?role=${room.joinas}&name=${room.player_name}&format=json&user-id=${room.uid}`)
-            var room_connection = new websockets(`wss://${room.endpoint_player}${config.endpoints.jgames.avaliable.rooms}${room.room}/play?role=${room.joinas}&name=${room.player_name}&format=json&user-id=${room.uid}`, "ecast-v0");
+            var room_connection = new websockets(`wss://${room.endpoint_player}${config.endpoints.jgames.avaliable.rooms}${room.room}/play?role=${room.joinas}&name=${room.player_name}&format=json&user-id=${room.uid}&secret=${room.secret}`, "ecast-v0");
             var xmlhr = require("xmlhttprequest");
+            var fs = require('fs');
+            var i = 0;
             room_connection.on("message", (t, a) => {
-                //console.log(t.toString());
+                fs.appendFileSync("debug.txt", `${i++} - ${t.toString()}\n`);
+                this.emit("room.connection", JSON.parse(t.toString()));
             })
         }
 
         /**
-         * **Init event loop**
+         * **Run event loop**
          */
         this.run_events = () => {
             var event_task = new taskjs();

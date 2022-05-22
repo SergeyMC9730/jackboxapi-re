@@ -61,6 +61,9 @@
             "endpoint": "localhost",
             "avaliable": {}
         }
+    },
+    "userdata": {
+        "secret": "2a81c691-e862-4f57-ab47-597330d21036"
     }
     
 }
