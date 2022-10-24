@@ -10,3 +10,5 @@ ATM all of these endpoints are extracted and debugged from the Russian Jackbox l
 # Installing
 
 `npm install`
+
+**I'm not associated with Jackbox Games in any fashion. All rights to the original Jackbox Game Services, it's name, logotype, brand and all that stuff belongs to Jackbox Games.**
