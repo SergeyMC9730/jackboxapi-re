@@ -151,7 +151,10 @@ class JAPI extends EventEmitter {
             "triviadeath2": ["Trivia Murder Party 2", "Смертельная вечеринка 2"],
             "survivetheinternet": ["Survive the Internet", "Выжить в Интернете"],
             "overdrawn": ["Overdrawn", "Гражданский холст"],
-            "monstermingle": ["Monster Mingle", "Монстр ищет монстра"]
+            "monstermingle": ["Monster Mingle", "Монстр ищет монстра"],
+	    "quiplash3-tjsp": ["Quiplash 3", "Смехлыст 3"],
+	    "splittheroom": ["Split The Room", "Раздели комнату"],
+	    "rapbattle": ["Rap Battle", "Город злых рифм"]
         }
         
 
@@ -245,7 +248,15 @@ class JAPI extends EventEmitter {
         this.connect = (room) => {
             var websockets = require('ws');
             //console.log(`wss://${room.endpoint_player}${config.endpoints.jgames.avaliable.rooms}${room.room}/play?role=${room.joinas}&name=${room.player_name}&format=json&user-id=${room.uid}`)
-            var room_connection = new websockets(`wss://${room.endpoint_player}${config.endpoints.jgames.avaliable.rooms}${room.room}/play?role=${room.joinas}&name=${room.player_name}&format=json&user-id=${room.uid}&secret=${room.secret}`, "ecast-v0");
+            var room_str = config.endpoints.jgames.avaliable.rooms;
+	    var endpoint = room.endpoint_player;
+	    if (room.joinas == "audience") {
+		room_str = room_str.replace("rooms", "audience");;
+	    	endpoint = room.endpoint_guest;
+	    }
+	    var url = `wss://${endpoint}${room_str}${room.room}/play?role=${room.joinas}&name=${room.player_name}&format=json&user-id=${room.uid}&secret=${room.secret}`;
+	    console.log(`websocket url = ${url}`);
+	    var room_connection = new websockets(url, "ecast-v0");
             var xmlhr = require("xmlhttprequest");
             var fs = require('fs');
             var i = 0;

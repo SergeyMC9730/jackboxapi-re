@@ -9,7 +9,7 @@ var fs = require("fs");
 var japi = require("./japi")
 var g = new japi.JAPI();
 
-var use_config = true;
+var use_config = false;
 var config = {
     room: "KDXC",
     playerName: "Debugger",

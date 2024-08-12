@@ -1,0 +1,4 @@
+{"return_type":"debug","returned":{"type":2,"msg":"Event thread and main thread are linked"}}
+{"return_type":"debug","returned":{"type":0,"msg":"request \"https://ecast.jackboxgames.com/api/v2/rooms/YVCJ\""}}
+{"return_type":"room.check","returned":{"ok":true,"body":{"appId":"5983d1cf-bf20-5def-7224-3b6b07fa0a06","appTag":"rapbattle","audienceEnabled":true,"code":"YVCJ","host":"i-061830b741a93bc8a.play.jackboxgames.com","audienceHost":"ecast.jackboxgames.com","locked":true,"full":true,"maxPlayers":8,"minPlayers":0,"moderationEnabled":false,"passwordRequired":false,"twitchLocked":true,"locale":"","keepalive":false,"controllerBranch":""}},"args":["ss",""]}
+{"return_type":"debug","returned":{"type":0,"msg":"request successful"}}
